@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring_proxy/spring_proxy.iml" filepath="$PROJECT_DIR$/spring_proxy/spring_proxy.iml" />
       <module fileurl="file://$PROJECT_DIR$/ssm/ssm.iml" filepath="$PROJECT_DIR$/ssm/ssm.iml" />
       <module fileurl="file://$PROJECT_DIR$/ssm_stu.iml" filepath="$PROJECT_DIR$/ssm_stu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test_github/test_github.iml" filepath="$PROJECT_DIR$/test_github/test_github.iml" />
     </modules>
   </component>
 </project>
