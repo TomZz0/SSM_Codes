@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--  mybatis中的标签必须按照指定顺序配置 顺序如下
+  properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,
+  objectWrapperFactory?,reflectorFactory?,plugins?,environments?,
+  databaseIdProvider?,mappers?
+  -->
+
+    <properties resource="jdbc.properties"/>
+    <!--  设置下划线映射为驼峰命名  -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <typeAliases>
+        <package name="com.wzh.mybatis.pojo"/>
+    </typeAliases>
+    <plugins>
+        <!--设置分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--    引入mybatis的映射文件-->
+    <mappers>
+        <package name="com.wzh.mybatis.mapper"/>
+    </mappers>
+</configuration>

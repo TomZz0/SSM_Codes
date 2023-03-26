@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzh.mybatis.mapper.SpecialSQLMapper">
+<!--    List<User> getUserByLike(@Param("like") String like);-->
+    <select id="getUserByLike" resultType="User">
+        select * from t_user where username like "%"#{like}"%"
+    </select>
+<!--    void deleteMoreUsers(@Param("ids") String ids);
+        delete from t_user where id in(5,6,8)所以不需要使用#{} 因为本就没有引号
+-->
+    <delete id="deleteMoreUsers" >
+        delete from t_user where id in (${ids})
+    </delete>
+<!--    List<User> getUserList(@Param("tableName") String tableName);
+        同样表名不带引号 使用${}
+-->
+    <select id="getUserList" resultType="User">
+        select * from ${tableName}
+    </select>
+<!--    void insertUser(User user);
+   userGenerateKeys表示是否使用自增的主键
+   keyProperty表示要给予的属性 即user的属性id中保存自增后的值
+   因为是自增的 不需要传入id就会添加id 若想获取id呢？
+   就得使用上述方法 设置使用主键并保存到某个属性
+-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user values
+        (null,#{name},#{password},#{age},#{gender},#{email})
+    </insert>
+</mapper>

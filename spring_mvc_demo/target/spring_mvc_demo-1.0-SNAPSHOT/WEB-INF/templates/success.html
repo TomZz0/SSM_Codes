@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>success</title>
+</head>
+<body>
+<!--通过ModelAndView共享的数据通过如下方法获取${属性名}-->
+<p th:text="${testScope}"></p>
+<p th:text="${testModel}"></p>
+<p th:text="${testModelMap}"></p>
+<p th:text="${testMap}"></p>
+<p th:text="${session.testSession}"></p>
+<p th:text="${application.testApplication}"></p>
+</body>
+</html>

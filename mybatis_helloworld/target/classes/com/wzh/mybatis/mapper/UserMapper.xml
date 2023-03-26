@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzh.mybatis.mapper.UserMapper">
+
+        <!--两个一致
+        1)接口全路径要和mapper.xml文件中mapper标签的namespace一致
+        2)接口中的方法名要和xml文件中SQL语句的id一致
+        id千万不要有重复的
+            -->
+
+<!--  用来写SQL语句  -->
+        <!--void insertUser()-->
+        <insert id="insertUser">
+            insert into t_user values(null,"张飞","1232",23,'男',"123@qq.com")
+        </insert>
+        <!-- void updateUser()-->
+        <update id="updateUser">
+            update t_user set age = 40 where username = 'admin'
+        </update>
+        <!-- void deleteUser()-->
+        <delete id="deleteUser">
+            delete from t_user where id = 3
+        </delete>
+        <!-- User getUserById()   -->
+        <!--
+        resultType: 设置结果类型 即查询数据要转换成的java类型
+        resultMap:自定义映射
+        -->
+        <select id="getUserById" resultType="User">
+            select * from t_user where id = 2
+        </select>
+        <!--  User getUsers()      -->
+        <select id="getUsers" resultType="User" >
+            select * from t_user
+        </select>
+</mapper>

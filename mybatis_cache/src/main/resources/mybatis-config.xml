@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--  mybatis中的标签必须按照指定顺序配置 顺序如下
+  properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,
+  objectWrapperFactory?,reflectorFactory?,plugins?,environments?,
+  databaseIdProvider?,mappers?
+  -->
+
+    <properties resource="jdbc.properties"/>
+
+    <!--  设置下划线映射为驼峰命名-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--    开启延迟加载 全局加载 针对与这个文件下的所有接口的方法
+                若有的方法需要延迟加载 有的需要立即加载 可以在mapper.xml中的自定义映射resultMap的
+                association标签中设置属性fetchType为eager或lazy
+                开启后 若没有访问分布加载中第二布查询的内容  就不会执行后续布的查询
+                还和aggressiveLazyLoading(按需加载)有关 若其为true则会停止延迟加载 会一并执行
+                所以要设置为false
+        -->
+        <!--    延迟加载    -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--    按需加载    -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.wzh.mybatis.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--    引入mybatis的映射文件-->
+    <mappers>
+        <package name="com.wzh.mybatis.mapper"/>
+    </mappers>
+</configuration>

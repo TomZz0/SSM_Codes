@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzh.mybatis.mapper.DeptMapper">
+<!--    Dept getEmpAndDeptByEmpIdStepTwo(@Param("deptId") Integer deptId);-->
+    <select id="getEmpAndDeptByEmpIdStepTwo" resultType="Dept">
+        select * from t_dept where dept_id = #{deptId}
+    </select>
+
+<!--  一对多 自定义映射查询 分布查询 ========> 方法一
+        对多 对应集合 使用collection标签
+      大体步骤: 先写第一个查询
+      Dept getDeptAndEmpByDeptId(@Param("deptId") Integer deptId);
+      配置xml文件 下面就是 设置自定义映射
+      然后写第二个查询 在EmpMapper中 返回多条emp信息 所以需要集合存储emp对象 方法如下
+       List<Emp> getDeptAndEmpByDeptIdStepTwo(@Param("deptId") Integer deptId);
+       然后在EmpMapper.xml配置文件
+       回到DeptMapper.xml 完善collection标签中的属性 property=emps 要二次查询完善的属性
+       第二条查询语句的接口全地址select="com.wzh.mybatis.mapper.EmpMapper.getDeptAndEmpByDeptIdStepTwo"
+       以及第二次查询的条件 由第一次查询的出 dept_id
+
+-->
+    <resultMap id="getDeptAndEmpByDeptIdStepMap" type="Dept">
+        <id column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <collection  property="emps"
+                     select="com.wzh.mybatis.mapper.EmpMapper.getDeptAndEmpByDeptIdStepTwo"
+                     column="dept_id">
+        </collection>
+    </resultMap>
+<!--    Dept getDeptAndEmpByDeptIdStepOne(@Param("deptId") Integer deptId);-->
+    <select id="getDeptAndEmpByDeptIdStepOne" resultMap="getDeptAndEmpByDeptIdStepMap">
+        select * from t_dept where dept_id = #{deptId}
+    </select>
+
+
+<!--一对多查询 使用collection标签设置dept对象的emps属性 =========>方法二
+    注意这里要使用ofType标签  即association对应javaType  collection对应ofType
+ -->
+    <resultMap id="getDeptAndEmpByDeptIdMap" type="Dept">
+        <id column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="emps" ofType="Emp">
+            <id column="emp_id" property="empId"/>
+            <result column="emp_name" property="empName"/>
+            <result column="age" property="age"/>
+            <result column="gender" property="gender"/>
+        </collection>
+    </resultMap>
+<!--    Dept getDeptAndEmpByDeptId(@Param("deptId") Integer deptId);-->
+    <select id="getDeptAndEmpByDeptId" resultMap="getDeptAndEmpByDeptIdMap">
+        select t_dept.*,t_emp.*  from t_dept left join t_emp on t_dept.dept_id = t_emp.dept_id
+        where t_dept.dept_id = #{deptId}
+    </select>
+</mapper>

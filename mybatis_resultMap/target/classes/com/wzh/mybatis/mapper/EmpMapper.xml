@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzh.mybatis.mapper.EmpMapper">
+<!--    Emp getEmpByEmpId(@Param("empId") Integer empId);
+    !==>如果字段名和属性不一致 就无法直接得到相关值 如下面语句
+    select * from t_emp where emp_id = #{empId}的查询结果中empId和empName都为null
+    解决方案1   为查询的字段设置别名 和属性名保持一致
+    select emp_id empId,emp_name empName,age,gender from t_emp where
+    emp_id = #{empId}
+    2   字段符合mysql的要求使用_ 属性符合JAVA的要求 使用驼峰命名
+    此时可以在Mybatis的核心配置文件(x-config.xml)中设置一个全局文件配置 将下划线映射为驼峰
+    映射规则 emp_id<==>empId emp_name<==>empName
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    3   使用resultMap自定义映射处理
+    resultMap标签:设置自定义的映射关系
+    id: 自定义映射的唯一标识
+    id标签表示主键和实体类的映射 result标签表示其余非主键的映射
+    type:对应字段的实体类的类型 即要映射的实体类类型
+    设置id 然后select语句中的resultMap的值和前边的id一致
+    在resultMap标签中设置column(数据库表中的字段)和property(java类中的属性)对应
+-->
+    <resultMap id="empResultMap" type="Emp">
+        <!--   主键和属性的映射关系     -->
+        <id column="emp_id" property="empId"/>
+        <!--  其余非主键和属性的映射关系      -->
+        <result column="emp_name" property="empName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+    </resultMap>
+
+    <select id="getEmpByEmpId" resultMap="empResultMap">
+        select * from t_emp where emp_id = #{empId}
+    </select>
+    <select id="getEmpByEmpIdOld" resultType="Emp">
+        select * from t_emp where emp_id = #{empId}
+    </select>
+
+<!--    Emp getEmpAndDeptByEmpId(@Param("empId") Integer empId);
+        对一 对应对象 使用association标签
+        若Emp对象中有dept对象而t_emp表中只有dept_id 此时想通过连表查询 根据emp表中的id得到dept信息该如何做
+        方法一:使用级联。设置数据库字段和emp对象中的dept对象中的属性映射
+        <result column="dept_id" property="dept.deptId"/>
+        <result column="dept_name" property="dept.deptName"/>
+        方法二:使用association标签处理多对一的映射关系 property指emp表中的属性dept javaType指Dept类路径
+        然后设置映射即可(就是将表中的dept的字段和emp的属性dept中的属性相关联)
+        <association property="dept" javaType="Dept">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+        方法三:分布查询 先查出来表emp 再把emp当参数去查dept
+        property是属性名 select是第二个要执行的sql语句 column是第一次查询结束后传入第二次查询的参数 即查询条件
+        fetchType 中 eager立即加载 || lazy延迟加载
+        设置<association property="dept" fetchType=""
+                     select="com.wzh.mybatis.mapper.DeptMapper.getEmpAndDeptByEmpIdStepTwo"
+                     column="dept_id">
+        </association>
+        StepOne方法就会自动调用方法二 先得到Emp 并将得到的Emp中的dept_id当作参数去查询dept 为emp的dept属性赋值后
+        返回完整的emp对象
+-->
+
+    <resultMap id="getEmpAndDeptByEmpIdMap1" type="Emp">
+        <id column="emp_id" property="empId"/>
+        <result column="emp_name" property="empName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="dept_id" property="dept.deptId"/>
+        <result column="dept_name" property="dept.deptName"/>
+    </resultMap>
+    <resultMap id="getEmpAndDeptByEmpIdMap2" type="Emp">
+        <id column="emp_id" property="empId"/>
+        <result column="emp_name" property="empName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <association property="dept" javaType="Dept">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+    <select id="getEmpAndDeptByEmpId" resultMap="getEmpAndDeptByEmpIdMap2">
+        select t_emp.*,t_dept.* from t_emp left join t_dept on t_emp.dept_id = t_dept.dept_id
+        where emp_id = #{empId}
+    </select>
+
+
+    <resultMap id="getEmpAndDeptByEmpIdMapStep1" type="Emp">
+
+        <id column="emp_id" property="empId"/>
+        <result column="emp_name" property="empName"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <association property="dept"
+                     select="com.wzh.mybatis.mapper.DeptMapper.getEmpAndDeptByEmpIdStepTwo"
+                     column="dept_id">
+        </association>
+    </resultMap>
+<!--    Emp getEmpAndDeptByEmpIdStepOne(@Param("empId") Integer empId);
+    同样的select标签可以使用不同resultMap 用哪个输入哪个的id即可
+-->
+    <select id="getEmpAndDeptByEmpIdStepOne" resultMap="getEmpAndDeptByEmpIdMapStep1">
+        select * from t_emp where emp_id = #{empId}
+    </select>
+<!--    List<Emp> getDeptAndEmpByDeptIdStepTwo(@Param("deptId") Integer deptId);
+        一对多 分布查询第二部
+-->
+    <select id="getDeptAndEmpByDeptIdStepTwo" resultType="Emp">
+        select * from t_emp where dept_id = #{deptId}
+    </select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="UserOne" class="com.wzh.spring.pojo.User" init-method="initMethod" destroy-method="destroyMethod" >
+        <property name="id" value="1"></property>
+        <property name="username" value="压缩"></property>
+        <property name="password" value="eqaeqr"></property>
+        <property name="age" value="23"></property>
+    </bean>
+<!--  将后置处理器配置到ioc容器中 会作用到每一个bean  -->
+    <bean id="myBeanPostProcessor" class="com.wzh.spring.process.MyBeanPostProcess"></bean>
+</beans>

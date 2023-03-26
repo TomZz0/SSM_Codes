@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="USE_RELEASE_OPTION" value="false" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="spring-transaction" />
+        <module name="spring_mvc_helloworld" />
+        <module name="spring_mvc_demo" />
+        <module name="spring_listener" />
+        <module name="mybatis_mbg" />
+        <module name="spring_mvc_annotation" />
+        <module name="spring_helloworld" />
+        <module name="spring_proxy" />
+        <module name="mybatis_parameters" />
+        <module name="spring_mvc_extension" />
+        <module name="mybatis_resultMap" />
+        <module name="mybatis_helloworld" />
+        <module name="spring_mvc_ajax" />
+        <module name="mybatis_cache" />
+        <module name="spring_mvc_rest" />
+        <module name="ssm" />
+        <module name="mybatis_dynamicSQL" />
+        <module name="spring_ioc_xml" />
+        <module name="spring_ioc_annotation" />
+        <module name="spring-aop" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="mybatis_cache" target="1.5" />
+      <module name="mybatis_dynamicSQL" target="1.5" />
+      <module name="mybatis_helloworld" target="1.5" />
+      <module name="mybatis_mbg" target="1.5" />
+      <module name="mybatis_parameters" target="1.5" />
+      <module name="mybatis_resultMap" target="1.5" />
+      <module name="spring-aop" target="1.5" />
+      <module name="spring-transaction" target="1.5" />
+      <module name="spring_helloworld" target="1.5" />
+      <module name="spring_ioc_annotation" target="1.5" />
+      <module name="spring_ioc_xml" target="1.5" />
+      <module name="spring_listener" target="1.5" />
+      <module name="spring_mvc_ajax" target="1.5" />
+      <module name="spring_mvc_annotation" target="1.8" />
+      <module name="spring_mvc_demo" target="1.5" />
+      <module name="spring_mvc_extension" target="1.8" />
+      <module name="spring_mvc_helloworld" target="1.5" />
+      <module name="spring_mvc_rest" target="1.5" />
+      <module name="spring_proxy" target="1.5" />
+      <module name="ssm" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="PREFER_TARGET_JDK_COMPILER" value="false" />
+  </component>
+</project>

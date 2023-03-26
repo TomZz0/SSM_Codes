@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--
+  scope中有两个属性 prototype和singleton
+  prototype表示多例 即每次创建的对象 都不同
+  singleton表示单例 即每次创建的对象 都相同
+  -->
+
+    <bean id="studentOne" class="com.wzh.spring.pojo.Student" scope="prototype">
+        <property name="sid" value="001"></property>
+        <property name="sname" value="贾克斯"></property>
+    </bean>
+</beans>

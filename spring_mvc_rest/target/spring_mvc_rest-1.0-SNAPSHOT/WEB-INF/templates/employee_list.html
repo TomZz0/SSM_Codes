@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+                                <!--别忘了@{}-->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.8.2.min.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+    <script type="text/javascript">
+        //页面加载完之后
+        $(function () {
+            //实现超链接删除功能
+            $("#a1").click(function () {
+                //获取form表单对象
+                var form = document.getElementsByTagName("form")[0];
+                //赋值
+                form.action = event.target.href;
+                //将表单提交
+                form.submit();
+                //阻止超链接的默认行为
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <th colspan="5">employee list</th>
+    </tr>
+    <tr>
+        <th>id</th>
+        <th>lastName</th>
+        <th>email</th>
+        <th>gender</th>
+        <th>options(<a th:href="@{/to/add}">add</a>)</th>
+    </tr>
+    <tr th:each="employee:${session.employees}">
+        <th th:text="${employee.id}"></th>
+        <th th:text="${employee.lastName}"></th>
+        <th th:text="${employee.email}"></th>
+        <th th:text="${employee.gender==1?'男':'女'}"></th>
+        <th>
+            <!--删除操作-->
+            <a id="a1" th:href="@{'/employee/'+${employee.id}}">delete</a>
+            <!--在输入路径时附带参数 需要以下写法-->
+            <a th:href="@{'/employee/'+${employee.id}}">update</a>
+        </th>
+    </tr>
+</table>
+<!--用于超链接删除标签的form表单-->
+<form method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+</body>
+</html>

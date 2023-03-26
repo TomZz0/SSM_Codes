@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update employee</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<form th:action="@{/employee}" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="id" th:value="${employee.id}">
+    <table>
+        <tr>
+            <th colspan="2">update employee</th>
+        </tr>
+        <tr>
+            <th>lastName</th>
+            <th>
+                <input type="text" name="lastName" th:value="${employee.lastName}">
+            </th>
+        </tr>
+        <tr>
+            <th>email</th>
+            <th>
+                <input type="text" name="email" th:value="${employee.email}">
+            </th>
+        </tr>
+        <tr>
+            <th>gender</th>
+            <th>
+                                    <!--单选框的回显-->
+                <input type="radio" name="gender" value="1" th:field="${employee.gender}">male
+                <input type="radio" name="gender" value="0" th:field="${employee.gender}">female
+            </th>
+        </tr>
+        <tr>
+            <th colspan="2">
+                <input type="submit" value="update">
+            </th>
+        </tr>
+
+    </table>
+</form>
+<p th:text="${employee.id}"></p>
+</body>
+</html>

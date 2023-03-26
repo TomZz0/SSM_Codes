@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--  手动装配 将三成架构交给IOC容器管理
+        需要设置其属性 使用引用<property name="userService" ref="userService"></property>
+      自动装配 需要使用autowire标签
+      no、default 表示不装配 此时属性使用默认值
+      byType 根据需要装配的类型自动匹配ioc容器中现有的bean 为属性赋值
+      byName 只要有一个bean的id和要赋值的属性名一致 就可以成功赋值
+      当有多个bean时 byType无法成功匹配 可以使用byName
+      如果没有匹配的bean且没有默认值 就会报空指针异常 如果有多个同意类型的bean同样报错
+-->
+    <bean class="com.wzh.spring.controller.UserController" autowire="byName">
+<!--        <property name="userService" ref="userService"></property>-->
+    </bean>
+
+    <bean id="userService" class="com.wzh.spring.service.impl.UserServiceImpl" autowire="byName">
+<!--        <property name="userDao" ref="userDao"></property>-->
+    </bean>
+
+    <bean id="userDao" class="com.wzh.spring.dao.impl.UserDaoImpl"></bean>
+</beans>

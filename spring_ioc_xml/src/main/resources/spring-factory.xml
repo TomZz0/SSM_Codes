@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--  实质将UserFactoryBean中的getObject方法返回的对象交给ioc容器管理
+      所以即使没有配置User的bean 也能获取到User对象
+  -->
+<bean class="com.wzh.spring.factory.UserFactoryBean"></bean>
+</beans>

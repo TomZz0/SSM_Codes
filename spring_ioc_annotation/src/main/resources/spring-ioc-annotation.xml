@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--扫描组件 直接扫描包
+exclude-filter排除扫描 即不扫描 在全部扫描的基础上排除一部分
+include-filter只扫描包含的     要在全都不扫描的基础上扫描
+所以要设置use-default-filters="false" 意为包下面全不扫描
+type="annotation" 按注解排除或包含 需要复制引用
+type="assignable" 按类排除或包含  需要全类名
+-->
+    <context:component-scan base-package="com.wzh.spring"></context:component-scan>
+
+    <bean id="userService" class="com.wzh.spring.service.impl.UserServiceImpl">
+    </bean>
+<!--    <context:component-scan base-package="com.wzh.spring" use-default-filters="false">-->
+<!--&lt;!&ndash;        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>&ndash;&gt;-->
+<!--        <context:include-filter  type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+<!--    </context:component-scan>-->
+
+</beans>
