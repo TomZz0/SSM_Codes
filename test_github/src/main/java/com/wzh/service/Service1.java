@@ -6,4 +6,7 @@ package com.wzh.service;
  * Description:
  */
 public class Service1 {
+    public static void main(String[] args) {
+        System.out.println(555);
+    }
 }

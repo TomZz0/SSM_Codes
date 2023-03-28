@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring-aop/spring-aop.iml" filepath="$PROJECT_DIR$/spring-aop/spring-aop.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-transaction/spring-transaction.iml" filepath="$PROJECT_DIR$/spring-transaction/spring-transaction.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_helloworld/spring_helloworld.iml" filepath="$PROJECT_DIR$/spring_helloworld/spring_helloworld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring_init/spring_init.iml" filepath="$PROJECT_DIR$/spring_init/spring_init.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_ioc_annotation/spring_ioc_annotation.iml" filepath="$PROJECT_DIR$/spring_ioc_annotation/spring_ioc_annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_ioc_xml/spring_ioc_xml.iml" filepath="$PROJECT_DIR$/spring_ioc_xml/spring_ioc_xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_listener/spring_listener.iml" filepath="$PROJECT_DIR$/spring_listener/spring_listener.iml" />
